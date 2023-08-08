@@ -1,0 +1,23 @@
+{
+  "name": "passport-0auth-test",
+  "version": "1.0.0",
+  "description": "small test app to get familiar woth passport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "express",
+    "passport",
+    "mongo",
+    "0auth"
+  ],
+  "author": "jan melicherik",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
