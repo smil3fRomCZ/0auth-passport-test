@@ -132,3 +132,4 @@ dist
 # custom
 
 config/googleKeys.js
+config/dbConnect.js
