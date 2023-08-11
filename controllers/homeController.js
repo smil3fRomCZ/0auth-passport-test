@@ -1,3 +1,3 @@
 exports.getHomePage = (req, res) => {
-  res.render("homePage");
+  res.render("homePage", { user: req.user });
 };

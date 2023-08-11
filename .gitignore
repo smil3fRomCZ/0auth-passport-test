@@ -133,3 +133,4 @@ dist
 
 config/googleKeys.js
 config/dbConnect.js
+config/cookieKey.js

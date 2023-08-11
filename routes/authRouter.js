@@ -15,12 +15,12 @@ authRouter.get(
   })
 );
 
-// callback route for google
+// callback route for google to redirect
 authRouter.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    res.send("You reached callback URI");
+    res.redirect("/profile");
   }
 );
 

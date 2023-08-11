@@ -4,6 +4,16 @@ const GoogleStrategy = require("passport-google-oauth20");
 const NinjaModel = require("../models/ninjaModel");
 const { google } = require("./googleKeys");
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  NinjaModel.findById(id).then((user) => {
+    done(null, user);
+  });
+});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -14,16 +24,25 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       // passport callback function
-      console.log("Passport callback");
-      console.log(profile);
-      new NinjaModel({
-        user_name: profile.displayName,
-        googleId: profile.id,
-      })
-        .save()
-        .then((newUser) => {
-          console.log("New user created!", newUser);
-        });
+      // Check if user already exist
+      NinjaModel.findOne({ googleId: profile.id }).then((currentUser) => {
+        if (currentUser) {
+          // already created user
+          done(null, currentUser);
+        } else {
+          console.log(profile);
+          // If not create a one
+          new NinjaModel({
+            user_name: profile.displayName,
+            googleId: profile.id,
+            thumbnail: profile._json.picture,
+          })
+            .save()
+            .then((newUser) => {
+              done(null, newUser);
+            });
+        }
+      });
     }
   )
 );
